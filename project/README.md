@@ -1,4 +1,10 @@
 **Note:** For the screenshots, you can store all of your answer images in the `answer-img` directory.
+## Quicknote
+
+Reminder:
+- start vagrant 
+- tunnel the ports 8080 and 3000
+
 
 ## Verify the monitoring installation
 
@@ -11,10 +17,55 @@
 *TODO:* Create a dashboard in Grafana that shows Prometheus as a source. Take a screenshot and include it here.
 
 ## Describe SLO/SLI
-*TODO:* Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
+Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
+
+- The SLO of *monthly uptime* could for example be to have a 99.9% up time in a given month. For the *request response time* we could set the objective to have 90 % of the requests returned in 200ms or less. SLIs are Service-Level Indicators. This means they should be specific metrics that can allow us to track the the performance of 
+
+SlIs are metrics to measure if we reach of Objectives. so for example we could measure that the service was out for 14 minutes in the last month and that only 82% of the requests were returned in 200ms or less in the last months.
 
 ## Creating SLI metrics.
-*TODO:* It is important to know why we want to measure certain metrics for our customer. Describe in detail 5 metrics to measure these SLIs. 
+It is important to know why we want to measure certain metrics for our customer. Describe in detail 5 metrics to measure these SLIs. 
+
+### 1. Monthly Uptime (SLO: 99.9%)
+- **SLI:** Percentage of time the service was available (i.e., no downtime) over the course of a given month.
+  - **Formula:**  
+    \[
+    \text{SLI} = \frac{\text{Total Uptime}}{\text{Total Time in Month}} \times 100
+    \]
+  - This metric provides the proportion of time the service was operational during the month.
+
+### 2. Request Response Time (SLO: average response time < X milliseconds)
+- **SLI:** The average time taken to process a request, measured in milliseconds or seconds.
+  - **Formula:**  
+    \[
+    \text{SLI} = \frac{\sum (\text{response times for all requests})}{\text{total number of requests}}
+    \]
+  - This provides insight into the overall responsiveness of the system.
+
+### 3. Request Success Rate (SLO: Success rate > 99.5%)
+- **SLI:** The percentage of successful requests (those that result in a 2xx status code) out of the total number of requests.
+  - **Formula:**  
+    \[
+    \text{SLI} = \frac{\text{Number of Successful Requests}}{\text{Total Number of Requests}} \times 100
+    \]
+  - This SLI tracks the reliability of the service in terms of successful responses.
+
+### 4. Error Rate (SLO: Error rate < 0.5%)
+- **SLI:** The percentage of requests that result in errors (such as 4xx or 5xx status codes) over the total number of requests.
+  - **Formula:**  
+    \[
+    \text{SLI} = \frac{\text{Number of Error Responses}}{\text{Total Number of Requests}} \times 100
+    \]
+  - This SLI helps monitor the frequency of failures or issues in the system.
+
+### 5. Latency Percentiles (SLO: 95th percentile < X milliseconds)
+- **SLI:** The 95th percentile of the request response time, meaning 95% of requests should be answered within this time.
+  - **Formula:**  
+    \[
+    \text{SLI} = \text{Response time at the 95th percentile of all requests}
+    \]
+  - This helps measure the "tail latency," or the response time for the worst-performing requests, which can be critical in ensuring a good user experience for most users.
+
 
 ## Create a Dashboard to measure our SLIs
 *TODO:* Create a dashboard to measure the uptime of the frontend and backend services We will also want to measure to measure 40x and 50x errors. Create a dashboard that show these values over a 24 hour period and take a screenshot.
